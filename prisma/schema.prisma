@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// LEADS — every submission from the contact form / mini lead widgets
+// ---------------------------------------------------------------------------
+model Lead {
+  id            String      @id @default(cuid())
+  name          String
+  email         String
+  whatsapp      String // WhatsApp-enabled phone number, stored E.164 where possible
+  serviceType   String // e.g. "SEO", "Web Design & Development"
+  budget        Int // slider value, in USD (or INR — see BUDGET_CURRENCY)
+  message       String?     @db.Text
+  source        String? // page/slug the lead came from, e.g. "/services/seo"
+  status        LeadStatus  @default(NEW)
+  whatsappSent  Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  WON
+  LOST
+}
+
+// ---------------------------------------------------------------------------
+// SERVICES — /services/[slug]
+// ---------------------------------------------------------------------------
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  parentSlug  String? // for sub-services, references parent Service.slug
+  eyebrow     String?
+  summary     String   @db.Text
+  heroImage   String?
+  body        String   @db.Text // rich markdown/HTML body
+  faqs        Faq[]
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  service   Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  serviceId String?
+  order     Int      @default(0)
+}
+
+// ---------------------------------------------------------------------------
+// INDUSTRIES — /industries/[slug]
+// ---------------------------------------------------------------------------
+model Industry {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  summary     String   @db.Text
+  heroImage   String?
+  body        String   @db.Text
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// BLOG — /blogs and /blogs/[slug]
+// ---------------------------------------------------------------------------
+model BlogPost {
+  id            String     @id @default(cuid())
+  slug          String     @unique
+  title         String
+  excerpt       String     @db.Text
+  coverImage    String?
+  content       String     @db.Text
+  author        String     @default("eDigital Interactive Team")
+  readingTime   Int        @default(5)
+  isPublished   Boolean    @default(true)
+  publishedAt   DateTime   @default(now())
+  categories    Category[] @relation("BlogCategories")
+  tags          Tag[]      @relation("BlogTags")
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model Category {
+  id    String     @id @default(cuid())
+  slug  String     @unique
+  name  String
+  posts BlogPost[] @relation("BlogCategories")
+}
+
+model Tag {
+  id    String     @id @default(cuid())
+  slug  String     @unique
+  name  String
+  posts BlogPost[] @relation("BlogTags")
+}
+
+// ---------------------------------------------------------------------------
+// CASE STUDIES — /casestudy/[slug]
+// ---------------------------------------------------------------------------
+model CaseStudy {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  clientName   String
+  title        String
+  category     String // SEO | Performance Marketing | Social Media | Website
+  industry     String?
+  summary      String   @db.Text
+  coverImage   String?
+  challenge    String   @db.Text
+  solution     String   @db.Text
+  resultsBody  String   @db.Text
+  metricLabel1 String?
+  metricValue1 String?
+  metricLabel2 String?
+  metricValue2 String?
+  metricLabel3 String?
+  metricValue3 String?
+  isPublished  Boolean  @default(true)
+  publishedAt  DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
