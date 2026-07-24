@@ -119,7 +119,7 @@ export const services: Service[] = [
       { title: "Budget migration", detail: "Spend shifts toward what's provably converting on a weekly cycle, reported in plain numbers, not vanity metrics." }
     ],
     faqs: [
-      { q: "What's the minimum ad spend you work with?", a: "We typically recommend a minimum of $1,500–$2,000/month in media spend so platforms have enough data to optimize efficiently — below that, testing gets statistically noisy." },
+      { q: "What's the minimum ad spend you work with?", a: "We typically recommend a minimum of ₹1,25,000–₹1,75,000/month in media spend so platforms have enough data to optimize efficiently — below that, testing gets statistically noisy." },
       { q: "Do you take a percentage of ad spend?", a: "Pricing is scoped per engagement and shared upfront during your consultation — no hidden markup on media spend." },
       { q: "Which platforms do you recommend for B2B?", a: "It depends on deal size and sales cycle — LinkedIn and Google typically lead for B2B, while Meta and YouTube often perform better for consumer and demand-generation plays. We'll recommend a mix after reviewing your funnel." }
     ]

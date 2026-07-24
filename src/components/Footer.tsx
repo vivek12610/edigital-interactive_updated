@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="container-edi py-16">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <div className="col-span-2">
-            <div className="flex items-center rounded-2xl bg-white px-3 py-2 w-fit">
+            <div className="flex items-center bg-white px-3 py-2 w-fit">
               <img src="/logo-cropped.png" alt="eDigital Interactive" className="h-7 w-auto" />
             </div>
             <p className="mt-4 max-w-xs text-sm text-paper/60">

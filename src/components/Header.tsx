@@ -16,8 +16,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-ink text-paper shadow-lift">
       <div className="container-edi">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center focus-ring rounded-2xl">
-            <span className="flex items-center rounded-2xl bg-white px-3 py-2 shadow-sm">
+          <Link href="/" className="flex items-center focus-ring">
+            <span className="flex items-center bg-white px-3 py-2 shadow-sm">
               <img src="/logo-cropped.png" alt="eDigital Interactive" className="h-6 w-auto md:h-7" />
             </span>
           </Link>

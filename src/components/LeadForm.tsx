@@ -10,22 +10,22 @@ type Props = {
   compact?: boolean;
 };
 
-const currencyFormatter = new Intl.NumberFormat("en-US", {
+const currencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
-  currency: "USD",
+  currency: "INR",
   maximumFractionDigits: 0
 });
 
-const BUDGET_MIN = 500;
-const BUDGET_MAX = 50000;
-const BUDGET_STEP = 500;
+const BUDGET_MIN = 10000;
+const BUDGET_MAX = 1000000;
+const BUDGET_STEP = 5000;
 
 export default function LeadForm({ source, defaultService, compact }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [serviceType, setServiceType] = useState(defaultService ?? services[0].name);
-  const [budget, setBudget] = useState(5000);
+  const [budget, setBudget] = useState(100000);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -60,7 +60,7 @@ export default function LeadForm({ source, defaultService, compact }: Props) {
       setEmail("");
       setWhatsapp("");
       setMessage("");
-      setBudget(5000);
+      setBudget(100000);
     } catch (err) {
       setStatus("error");
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");

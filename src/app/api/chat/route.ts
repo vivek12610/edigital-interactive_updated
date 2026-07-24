@@ -1,11 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { retrieveContext } from "@/lib/retrieval";
+import { services } from "@/lib/data/services";
 
 export async function POST(req: NextRequest) {
   const { message } = await req.json().catch(() => ({ message: "" }));
 
   if (!message || typeof message !== "string") {
     return NextResponse.json({ error: "Message is required." }, { status: 400 });
+  }
+
+  const lower = message.toLowerCase().trim();
+
+  // Friendly handling for greetings / very short openers so it never feels broken.
+  if (/^(hi|hey|hello|yo|sup)\b/.test(lower) || lower.length <= 3) {
+    return NextResponse.json({
+      reply:
+        "Hey! I can help you learn about our services — try asking about SEO, AI search, performance marketing, web design, or any industry we work with.",
+      sources: []
+    });
   }
 
   const chunks = retrieveContext(message);
@@ -32,10 +44,12 @@ export async function POST(req: NextRequest) {
   // -------------------------------------------------------------------------
 
   if (chunks.length === 0) {
+    // Helpful fallback instead of a dead end: surface a few real services to explore.
+    const suggestions = services.slice(0, 4).map((s) => ({ title: s.name, url: `/services/${s.slug}` }));
     return NextResponse.json({
       reply:
-        "I couldn't find a specific match for that in our services yet — could you tell me a bit more, or would you like to book a call with a strategist?",
-      sources: []
+        "I didn't catch an exact match for that — here are a few things we help clients with. Tap one to see details, or head to the contact page to talk to a strategist directly.",
+      sources: suggestions
     });
   }
 
