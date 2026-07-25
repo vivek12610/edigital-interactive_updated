@@ -16,7 +16,7 @@ const currencyFormatter = new Intl.NumberFormat("en-IN", {
   maximumFractionDigits: 0
 });
 
-const BUDGET_MIN = 10000;
+const BUDGET_MIN = 5000;
 const BUDGET_MAX = 1000000;
 const BUDGET_STEP = 5000;
 
@@ -91,7 +91,7 @@ export default function LeadForm({ source, defaultService, compact }: Props) {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Jordan Patel"
+            placeholder="ajay tiwari"
             className="focus-ring w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm"
           />
         </div>
@@ -103,7 +103,7 @@ export default function LeadForm({ source, defaultService, compact }: Props) {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="jordan@company.com"
+            placeholder="ajay@company.com"
             className="focus-ring w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm"
           />
         </div>
