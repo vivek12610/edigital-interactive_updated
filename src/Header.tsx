@@ -17,9 +17,7 @@ export default function Header() {
       <div className="container-edi">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center focus-ring">
-            {/* <span className="flex items-center bg-white px-3 py-2 shadow-sm"> */}
-              <img src="/logo-dark-transparent.png" alt="eDigital Interactive" className="h-8 w-auto md:h-9" />
-            {/* </span> */}
+            <img src="/logo-dark-transparent.png" alt="eDigital Interactive" className="h-8 w-auto md:h-9" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">

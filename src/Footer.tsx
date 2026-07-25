@@ -11,9 +11,7 @@ export default function Footer() {
       <div className="container-edi py-16">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <div className="col-span-2">
-            {/* <div className="flex items-center bg-white px-3 py-2 w-fit"> */}
             <img src="/logo-dark-transparent.png" alt="eDigital Interactive" className="h-9 w-auto" />
-            {/* </div> */}
             <p className="mt-4 max-w-xs text-sm text-paper/60">
               A performance-driven digital marketing agency focused on real business growth — SEO, AI Search Optimization, paid ads, and CRO. No fluff, no vanity metrics, just measurable outcomes.
             </p>
