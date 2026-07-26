@@ -1,26 +1,19 @@
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { PortableText } from "@portabletext/react";
+import { getCaseStudyBySlug } from "@/lib/sanity-queries";
+import { urlFor } from "@/lib/sanity";
 import LeadForm from "@/components/LeadForm";
 
 export const revalidate = 60;
 
-async function getCaseStudy(slug: string) {
-  try {
-    return await prisma.caseStudy.findUnique({ where: { slug } });
-  } catch (err) {
-    console.error("Failed to load case study:", err);
-    return null;
-  }
-}
-
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const cs = await getCaseStudy(params.slug);
+  const cs = await getCaseStudyBySlug(params.slug);
   if (!cs) return {};
   return { title: cs.title, description: cs.summary };
 }
 
 export default async function CaseStudyDetailPage({ params }: { params: { slug: string } }) {
-  const cs = await getCaseStudy(params.slug);
+  const cs = await getCaseStudyBySlug(params.slug);
   if (!cs) return notFound();
 
   const metrics = [
@@ -33,16 +26,21 @@ export default async function CaseStudyDetailPage({ params }: { params: { slug: 
     <div>
       <section className="section-pad border-b border-line bg-white">
         <div className="container-edi max-w-3xl">
-          <span className="rounded-full bg-paper px-2 py-0.5 text-[11px] font-medium text-signal">{cs.category}</span>
+          <span className="rounded-full bg-paper px-2 py-0.5 text-[11px] font-medium text-signal-dark">{cs.category}</span>
           <h1 className="mt-3 font-display text-3xl font-bold tracking-tight md:text-4xl">{cs.title}</h1>
           <p className="mt-3 text-ink/60">{cs.summary}</p>
           <p className="mt-2 text-xs text-ink/40">Client: {cs.clientName}{cs.industry ? ` · ${cs.industry}` : ""}</p>
+
+          {cs.coverImage && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={urlFor(cs.coverImage).width(1000).url()} alt={cs.title} className="mt-6 w-full rounded-2xl" />
+          )}
 
           {metrics.length > 0 && (
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {metrics.map((m) => (
                 <div key={m.label} className="card p-5">
-                  <p className="font-mono text-2xl font-bold text-signal">{m.value}</p>
+                  <p className="font-mono text-2xl font-bold text-signal-dark">{m.value}</p>
                   <p className="mt-1 text-xs text-ink/60">{m.label}</p>
                 </div>
               ))}
@@ -55,15 +53,21 @@ export default async function CaseStudyDetailPage({ params }: { params: { slug: 
         <div className="container-edi max-w-3xl space-y-10">
           <div>
             <p className="eyebrow">The challenge</p>
-            <div className="prose prose-neutral mt-3 max-w-none prose-headings:font-display" dangerouslySetInnerHTML={{ __html: cs.challenge }} />
+            <div className="prose prose-neutral mt-3 max-w-none prose-headings:font-display">
+              <PortableText value={cs.challenge} />
+            </div>
           </div>
           <div>
             <p className="eyebrow">The solution</p>
-            <div className="prose prose-neutral mt-3 max-w-none prose-headings:font-display" dangerouslySetInnerHTML={{ __html: cs.solution }} />
+            <div className="prose prose-neutral mt-3 max-w-none prose-headings:font-display">
+              <PortableText value={cs.solution} />
+            </div>
           </div>
           <div>
             <p className="eyebrow">The results</p>
-            <div className="prose prose-neutral mt-3 max-w-none prose-headings:font-display" dangerouslySetInnerHTML={{ __html: cs.resultsBody }} />
+            <div className="prose prose-neutral mt-3 max-w-none prose-headings:font-display">
+              <PortableText value={cs.resultsBody} />
+            </div>
           </div>
         </div>
       </section>

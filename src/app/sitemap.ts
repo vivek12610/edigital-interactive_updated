@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { services } from "@/lib/data/services";
 import { industries } from "@/lib/data/industries";
-import { prisma } from "@/lib/prisma";
+import { getAllPosts, getAllCaseStudies } from "@/lib/sanity-queries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://www.edigitalinteractive.com";
@@ -18,13 +18,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let caseStudyRoutes: MetadataRoute.Sitemap = [];
 
   try {
-    const posts = await prisma.blogPost.findMany({ where: { isPublished: true }, select: { slug: true, updatedAt: true } });
-    blogRoutes = posts.map((p) => ({ url: `${base}/blogs/${p.slug}`, lastModified: p.updatedAt }));
+    const posts = await getAllPosts();
+    blogRoutes = posts.map((p) => ({ url: `${base}/blogs/${p.slug}`, lastModified: new Date(p.publishedAt) }));
 
-    const caseStudies = await prisma.caseStudy.findMany({ where: { isPublished: true }, select: { slug: true, updatedAt: true } });
-    caseStudyRoutes = caseStudies.map((c) => ({ url: `${base}/casestudy/${c.slug}`, lastModified: c.updatedAt }));
+    const caseStudies = await getAllCaseStudies();
+    caseStudyRoutes = caseStudies.map((c) => ({ url: `${base}/casestudy/${c.slug}`, lastModified: new Date(c.publishedAt) }));
   } catch {
-    // DB not reachable at build time — static routes still generate fine.
+    // Sanity not reachable at build time — static routes still generate fine.
   }
 
   return [...staticRoutes, ...serviceRoutes, ...industryRoutes, ...blogRoutes, ...caseStudyRoutes];

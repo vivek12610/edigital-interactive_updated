@@ -17,7 +17,13 @@ export default function Footer() {
             <p className="mt-4 max-w-xs text-sm text-paper/60">
               A performance-driven digital marketing agency focused on real business growth — SEO, AI Search Optimization, paid ads, and CRO. No fluff, no vanity metrics, just measurable outcomes.
             </p>
+            <p className="mt-4 max-w-xs text-sm text-paper/60">
+              CONNECT WITH US:
+            </p>
             <div className="mt-5 space-y-2 text-sm text-paper/70">
+            <p className="flex items-start gap-2">
+                <MapPin size={15} className="mt-0.5 shrink-0" /> Unit No 23, 8th Floor NPX Tower, Sector 153, Noida, Uttar Pradesh 201310
+              </p>
               <a href="mailto:info@edigitalinteractive.com" className="focus-ring flex items-center gap-2 hover:text-signal-light">
                 <Mail size={15} /> info@edigitalinteractive.com
               </a>
@@ -25,7 +31,8 @@ export default function Footer() {
                 <Phone size={15} /> +91 95403 12155 · +91 70116 29336
               </a>
               <p className="flex items-start gap-2">
-                <MapPin size={15} className="mt-0.5 shrink-0" /> Nukleus Coworking Space, Plot 29, Sector 142, Noida, UP 201305
+                <MapPin size={15} className="mt-0.5 shrink-0" /> REGISTERED OFFICE:- Aashtha Kunj, RZF 906/21,Block P, Raj Nagar II Extension, Palam, New Delhi, Delhi, 110077
+                <MapPin size={15} className="mt-0.5 shrink-0" /> CORPORATE OFFICE:- Nukleus Coworking Space, Plot 29, Sector 142, Noida, UP 201305
               </p>
             </div>
             <div className="mt-5 flex gap-3">
@@ -71,9 +78,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-paper/10 pt-6 text-xs text-paper/50 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-paper/10 pt-6 text-xs text-paper/50 md:flex-row md:items-center md:justify-center">
           <p>© {new Date().getFullYear()} EDOTIC DIGITAL INTERACTIVE SOLUTIONS Pvt Ltd. All rights reserved.</p>
-          <p>Registered office: Aashtha Kunj, RZF 906/21, Block P, Raj Nagar II Extension, Palam, New Delhi 110077 · Influencer marketing powered by FreshCrowd.</p>
+          {/* <p>Registered office: Aashtha Kunj, RZF 906/21, Block P, Raj Nagar II Extension, Palam, New Delhi 110077 · Influencer marketing powered by FreshCrowd.</p> */}
         </div>
       </div>
     </footer>
