@@ -4,6 +4,7 @@ import LeadForm from "@/components/LeadForm";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import ClientLogos from "@/components/ui/ClientLogos";
 import CaseStudyCarousel from "@/components/CaseStudyCarousel";
+import AnimatedHeroBackground from "@/components/AnimatedHeroBackground";
 import { services } from "@/lib/data/services";
 import { industries } from "@/lib/data/industries";
 
@@ -41,46 +42,57 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="section-pad">
-        <div className="container-edi text-center">
-          <p className="eyebrow inline-flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-signal" /> SEO · AI Visibility · Performance Marketing · Web Development
+      <section className="relative overflow-hidden bg-ink text-paper section-pad pb-32">
+        <AnimatedHeroBackground />
+        
+        <div className="container-edi relative z-10 text-center">
+          <p className="eyebrow inline-flex items-center gap-2 text-paper/80">
+            <span className="h-1.5 w-1.5 rounded-full bg-signal shadow-[0_0_8px_rgba(229,72,77,0.8)]" /> 
+            SEO · AI VISIBILITY · PERFORMANCE MARKETING · WEB DEVELOPMENT
           </p>
-          <h1 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl">
-            We drive real growth to your business <ArrowUpRight className="inline -translate-y-2 text-signal-dark" size={40} />
+          
+          <h1 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-[72px]">
+            We drive real growth to your <span className="text-transparent bg-clip-text bg-gradient-to-r from-signal to-signal-light">business</span> 
+            <ArrowUpRight className="inline-block ml-3 text-signal shrink-0" size={48} />
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-base text-ink/60 md:text-lg">
+          
+          <p className="mx-auto mt-7 max-w-2xl text-base text-paper/80 md:text-[17px] leading-relaxed">
             Unlock your brand's potential with SEO, AI search optimization, and performance marketing built to compound. From strategy to execution, we drive growth.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/contact" className="btn-accent">Get a Free Audit <ArrowUpRight size={16} /></Link>
-            <Link href="/casestudy" className="btn-secondary">See client results</Link>
+          
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Link href="/contact" className="btn-primary !bg-signal !text-white hover:!bg-signal-light border-none shadow-[0_0_20px_rgba(229,72,77,0.4)] !text-sm !px-6 !py-2.5">
+              Get a Free Audit <ArrowUpRight size={15} />
+            </Link>
+            <Link href="/casestudy" className="btn-secondary !bg-white/10 !text-white !border-white/20 hover:!bg-white/20 backdrop-blur-sm !text-sm !px-6 !py-2.5">
+              See client results
+            </Link>
           </div>
 
           {/* Three-card row */}
-          <div className="mt-14 grid gap-4 text-left md:grid-cols-3">
-            <div className="card p-6">
-              <p className="font-display text-lg font-bold">Services</p>
+          <div className="mt-20 grid gap-4 text-left md:grid-cols-3">
+            <div className="card p-6 !bg-white/5 backdrop-blur-md !border-white/10">
+              <p className="font-display text-lg font-bold text-white">Services</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {serviceTags.map((tag) => (
-                  <span key={tag} className="tag-pill font-medium" style={{ color: '#E5484D' }}>{tag}</span>
+                  <span key={tag} className="tag-pill font-medium !bg-black/40 !border-white/10 !text-white" style={{ color: '#E5484D' }}>{tag}</span>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-3xl bg-ink p-6 text-paper">
-              <p className="font-display text-4xl font-bold">100+</p>
-              <p className="mt-2 text-sm text-paper/60">brands scaled with SEO, AI search, and performance marketing.</p>
+            <div className="rounded-3xl bg-black/40 backdrop-blur-md p-6 text-paper border border-white/10">
+              <p className="font-display text-4xl font-bold text-white">100+</p>
+              <p className="mt-2 text-sm text-paper/80">brands scaled with SEO, AI search, and performance marketing.</p>
             </div>
 
-            <div className="card p-6">
-              <p className="font-display text-2xl leading-none text-signal-dark">&ldquo;</p>
-              <p className="mt-1 font-display text-base font-semibold leading-snug">
+            <div className="card p-6 !bg-white/5 backdrop-blur-md !border-white/10">
+              <p className="font-display text-2xl leading-none text-signal">&ldquo;</p>
+              <p className="mt-1 font-display text-base font-semibold leading-snug text-white">
                 Our organic traffic tripled and the reporting finally made sense to our leadership team.
               </p>
               <div className="mt-4 flex items-center gap-2">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-signal text-xs font-bold text-ink">MK</span>
-                <span className="text-xs text-ink/50">Marketing Director, D2C brand</span>
+                <span className="text-xs text-paper/70">Marketing Director, D2C brand</span>
               </div>
             </div>
           </div>
