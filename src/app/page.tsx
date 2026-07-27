@@ -201,7 +201,7 @@ export default function HomePage() {
         <div className="container-edi">
           <p className="eyebrow !text-signal-light">Built for your category</p>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">Playbooks by industry, not templates.</h2>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {/* <div className="mt-10 grid gap-4 md:grid-cols-3">
             {industries.map((ind) => (
               <Link key={ind.slug} href={`/industries/${ind.slug}`} className="focus-ring group rounded-3xl border border-paper/15 p-6 transition hover:border-signal-light">
                 <p className="eyebrow !text-signal-light">{ind.eyebrow}</p>
@@ -212,7 +212,59 @@ export default function HomePage() {
                 </span>
               </Link>
             ))}
+          </div> */}
+
+
+<div className="mt-10 grid gap-4 md:grid-cols-3">
+            {industries.map((ind) => {
+              //UPDATING SIZE OF 3 IMAGES LAW FIRM,HEALTHCARE,SALON
+
+              // const bgImage: Record<string, string> = {
+              //   "law-firms": "/industry-law-firms.jpg",
+              //   salon: "/industry-salons.jpg",
+              //   healthcare: "/industry-healthcare.jpg"
+              // };
+              // const image = bgImage[ind.slug];
+
+              const bgImage: Record<string, string> = {
+  "law-firms": "/industry-law-firms.jpg",
+  salon: "/industry-salons.jpg",
+  healthcare: "/industry-healthcare.jpg"
+};
+const bgSize: Record<string, string> = {
+  "law-firms": "60%",
+  salon: "cover",
+  healthcare: "44%"
+};
+const image = bgImage[ind.slug];
+const size = bgSize[ind.slug] ?? "cover";
+              return (
+                <Link
+                  key={ind.slug}
+                  href={`/industries/${ind.slug}`}
+                  className="focus-ring group relative overflow-hidden rounded-3xl border border-paper/15 p-6 transition hover:border-signal-light"
+                  style={
+                    image
+                      ? {
+                          backgroundImage: `linear-gradient(180deg, rgba(14,14,14,0.55) 0%, rgba(14,14,14,0.9) 78%), url('${image}')`,
+                          backgroundSize: size,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat"
+                        }
+                      : undefined
+                  }
+                >
+                  <p className="eyebrow !text-signal-light">{ind.eyebrow}</p>
+                  <h3 className="mt-2 font-display text-lg font-semibold text-paper">{ind.name}</h3>
+                  <p className="mt-2 text-sm text-paper/70">{ind.tagline}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-signal-light opacity-0 transition group-hover:opacity-100">
+                    See the playbook <ArrowRight size={14} />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
