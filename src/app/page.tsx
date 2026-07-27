@@ -3,6 +3,7 @@ import { ArrowUpRight, ArrowRight, Sparkles, LineChart, Cpu, Users2, GraduationC
 import LeadForm from "@/components/LeadForm";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import ClientLogos from "@/components/ui/ClientLogos";
+import CaseStudyCarousel from "@/components/CaseStudyCarousel";
 import { services } from "@/lib/data/services";
 import { industries } from "@/lib/data/industries";
 
@@ -23,6 +24,18 @@ const featuredCaseStudy = {
 };
 
 const portfolioCategories = ["SEO", "Performance Marketing", "Social Media", "Web Design"];
+
+const serviceHoverImages: Record<string, string> = {
+  "ai-search-optimization": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+  "seo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+  "local-seo": "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800",
+  "performance-marketing": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+  "social-media-marketing": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800",
+  "content-marketing": "https://images.unsplash.com/photo-1455390582262-044cdead2708?auto=format&fit=crop&q=80&w=800",
+  "digital-pr-orm": "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?auto=format&fit=crop&q=80&w=800",
+  "ai-automation": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
+  "web-design-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800"
+};
 
 export default function HomePage() {
   return (
@@ -49,8 +62,8 @@ export default function HomePage() {
             <div className="card p-6">
               <p className="font-display text-lg font-bold">Services</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {serviceTags.map((tag, i) => (
-                  <span key={tag} className={`tag-pill ${i % 2 === 0 ? "bg-ink text-paper border-ink" : ""}`}>{tag}</span>
+                {serviceTags.map((tag) => (
+                  <span key={tag} className="tag-pill font-medium" style={{ color: '#E5484D' }}>{tag}</span>
                 ))}
               </div>
             </div>
@@ -138,7 +151,7 @@ export default function HomePage() {
       </section>
 
       {/* Portfolio teaser */}
-      <section className="section-pad bg-card border-y border-line">
+      <section className="section-pad bg-card border-y border-line overflow-hidden">
         <div className="container-edi">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">Incredible results we've delivered</h2>
@@ -149,26 +162,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <div
-              className="relative overflow-hidden rounded-3xl p-8 text-paper"
-              style={{ background: "linear-gradient(135deg, #121212 0%, #4A1215 60%, #E5484D 160%)" }}
-            >
-              <GraduationCap className="pointer-events-none absolute -right-6 -bottom-6 text-white/10" size={160} strokeWidth={1} />
-              <span className="relative tag-pill bg-white text-ink border-white">{featuredCaseStudy.category}</span>
-              <h3 className="relative mt-4 font-display text-xl font-bold">{featuredCaseStudy.title}</h3>
-              <p className="relative mt-2 text-sm text-paper/70">{featuredCaseStudy.detail}</p>
-              <Link href={featuredCaseStudy.href} className="relative mt-4 inline-flex items-center gap-1 text-sm font-semibold text-signal-light">
-                View case study <ArrowRight size={14} />
-              </Link>
-            </div>
-            <div className="rounded-3xl bg-ink p-8 text-paper">
-              <p className="font-display text-lg font-bold">186% increase in organic users</p>
-              <p className="mt-2 text-sm text-paper/60">Watania Takaful reached top-5 rankings on 70% of tracked keywords within 8 months of engagement.</p>
-              <Link href="/casestudy" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-signal-light">
-                See more results <ArrowRight size={14} />
-              </Link>
-            </div>
+          <div className="mt-8">
+            <CaseStudyCarousel />
           </div>
         </div>
       </section>
@@ -180,13 +175,24 @@ export default function HomePage() {
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">One team, every growth lever.</h2>
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {services.slice(0, 9).map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="card focus-ring group p-6 transition hover:border-signal-dark hover:shadow-lift">
-                <p className="eyebrow">{s.eyebrow}</p>
-                <h3 className="mt-2 font-display text-lg font-semibold">{s.name}</h3>
-                <p className="mt-2 text-sm text-ink/60">{s.tagline}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-signal-dark opacity-0 transition group-hover:opacity-100">
-                  Learn more <ArrowRight size={14} />
-                </span>
+              <Link key={s.slug} href={`/services/${s.slug}`} className="card focus-ring group relative overflow-hidden p-6 transition-all duration-500 hover:border-signal-dark hover:shadow-xl hover:-translate-y-1">
+                {/* Hover Background Image & Overlay */}
+                <img 
+                  src={serviceHoverImages[s.slug] || "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800"} 
+                  alt={s.name}
+                  className="absolute inset-0 z-0 h-full w-full object-cover opacity-0 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 z-0 bg-black/70 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+
+                {/* Content */}
+                <div className="relative z-10 flex h-full flex-col">
+                  <p className="eyebrow transition-colors duration-300 group-hover:!text-signal-light">{s.eyebrow}</p>
+                  <h3 className="mt-2 font-display text-lg font-semibold text-ink transition-colors duration-300 group-hover:text-white">{s.name}</h3>
+                  <p className="mt-2 flex-1 text-sm text-ink/60 transition-colors duration-300 group-hover:text-white/80">{s.tagline}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-signal-dark opacity-0 transition-all duration-300 group-hover:text-signal group-hover:opacity-100">
+                    Learn more <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

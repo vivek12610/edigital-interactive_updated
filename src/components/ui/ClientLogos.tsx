@@ -39,7 +39,7 @@ const clients: ClientLogo[] = [
 function ClientBadge({ client, visible, delay }: { client: ClientLogo; visible: boolean; delay: number }) {
   const [imgFailed, setImgFailed] = useState(false);
   const src = client.localImage ?? (client.domain ? `https://www.google.com/s2/favicons?domain=${client.domain}&sz=64` : null);
-  const sizeClass = client.localImage ? "h-8 w-8" : "h-11 w-11";
+  const sizeClass = "h-10 w-10";
 
   return (
     <div
